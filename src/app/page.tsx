@@ -90,7 +90,7 @@ export default function Home() {
     }
 
     // Credentials setup
-    const savedKey = localStorage.getItem('groq_api_key') || localStorage.getItem('openrouter_api_key') || localStorage.getItem('gemini_api_key');
+    const savedKey = localStorage.getItem('claude_api_key') || localStorage.getItem('groq_api_key') || localStorage.getItem('openrouter_api_key') || localStorage.getItem('gemini_api_key');
     if (savedKey) {
       setApiKey(savedKey);
       setShowKeyInput(false);
@@ -135,7 +135,7 @@ export default function Home() {
 
   const saveApiKey = (key: string) => {
     setApiKey(key);
-    localStorage.setItem('groq_api_key', key);
+    localStorage.setItem('claude_api_key', key);
     setShowKeyInput(false);
   };
 
@@ -208,6 +208,7 @@ export default function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-claude-key': apiKey,
           'x-groq-key': apiKey,
           'x-openrouter-key': apiKey,
           'x-gemini-key': apiKey
@@ -293,6 +294,7 @@ export default function Home() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'x-claude-key': apiKey,
             'x-groq-key': apiKey,
             'x-openrouter-key': apiKey,
             'x-gemini-key': apiKey
@@ -412,9 +414,9 @@ export default function Home() {
                 <Settings className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-bold tracking-wide text-foreground">Groq API Key Config</h3>
+                <h3 className="text-sm font-bold tracking-wide text-foreground">Claude API Key Config</h3>
                 <p className="text-xs text-muted-foreground mt-1 max-w-2xl leading-relaxed">
-                  We use the Groq API to intelligently map non-standard columns and parse multi-line emails or phone numbers. If not configured in the server&apos;s <code>.env</code> file, you can supply it here. Saved locally in your browser.
+                  We use the Claude API to intelligently map non-standard columns and parse multi-line emails or phone numbers. If not configured in the server&apos;s <code>.env</code> file, you can supply it here. Saved locally in your browser.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 mt-4">
                   <input
@@ -422,7 +424,7 @@ export default function Home() {
                     placeholder={
                       hasServerKey
                         ? "Using default server key. Enter custom key to override..."
-                        : "Paste your Groq API Key here..."
+                        : "Paste your Claude API Key here..."
                     }
                     defaultValue={apiKey ? apiKey : (hasServerKey ? "••••••••••••••••" : "")}
                     id="apiKeyInput"
@@ -466,7 +468,7 @@ export default function Home() {
                 AI CSV Importer
               </h2>
               <p className="mt-3.5 text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">
-                Clean and import contact lists dynamically. Groq matches column headers, reformats dates, and segregates secondary phone numbers instantly.
+                Clean and import contact lists dynamically. Claude matches column headers, reformats dates, and segregates secondary phone numbers instantly.
               </p>
             </div>
 
@@ -590,7 +592,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-lg font-bold tracking-wide text-foreground">Configure AI CRM Mapping</h3>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Groq pre-selected appropriate column matches. Review or adjust mappings before processing. Unmapped fields will be bypassed or compiled into CRM notes.
+                    Claude pre-selected appropriate column matches. Review or adjust mappings before processing. Unmapped fields will be bypassed or compiled into CRM notes.
                   </p>
                 </div>
 
@@ -662,7 +664,7 @@ export default function Home() {
 
               <h3 className="text-xl font-bold tracking-wide text-foreground">Processing lead data with AI</h3>
               <p className="text-xs text-muted-foreground mt-2 max-w-sm">
-                Mapping fields and formatting contacts using Groq API. Records are processed in batches.
+                Mapping fields and formatting contacts using Claude API. Records are processed in batches.
               </p>
 
               {/* Progress and status */}
