@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --background: 0 0% 100%; /* White */
+  --foreground: 240 10% 3.9%; /* Zinc 950 */
+  --card: 0 0% 100%; /* White */
+  --card-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%; /* Zinc 900 */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%; /* Zinc 100 */
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%; /* Zinc 100 */
+  --muted-foreground: 240 3.8% 46.1%; /* Zinc 500 */
+  --border: 240 5.9% 90%; /* Zinc 200 */
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 3.9%;
+  
+  --laser-color: #4f46e5;
+  --laser-shadow: #10b981;
+}
+
+.dark {
+  --background: 240 10% 3.9%; /* Zinc 950 */
+  --foreground: 0 0% 98%; /* Zinc 50 */
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --primary: 0 0% 98%; /* Zinc 50 */
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%; /* Zinc 800 */
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%; /* Zinc 800 */
+  --muted-foreground: 240 5% 64.9%; /* Zinc 400 */
+  --border: 240 3.7% 15.9%; /* Zinc 800 */
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  
+  --laser-color: #6366f1;
+  --laser-shadow: #34d399;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+@keyframes scan-laser {
+  0%, 100% { top: 0%; }
+  50% { top: 100%; }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-scanner {
+  position: relative;
+}
+
+.animate-scanner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--laser-color), var(--laser-shadow), var(--laser-color), transparent);
+  box-shadow: 0 0 12px var(--laser-color), 0 0 4px var(--laser-shadow);
+  animation: scan-laser 2.5s infinite linear;
+}
+
+.animate-float {
+  animation: float-gentle 4s infinite ease-in-out;
+}
